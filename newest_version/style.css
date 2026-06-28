@@ -134,7 +134,6 @@ body {
   background: var(--harvest-gold-100);
   color: var(--ink);
   font-family: 'Montserrat', sans-serif;
-  overflow-x: hidden;
 }
 
 img {
@@ -230,6 +229,8 @@ img {
     0 2px 6px rgba(94, 26, 18, 0.18),
     0 6px 20px rgba(63, 18, 12, 0.09);
 }
+
+.info-item.info-item--mobile { display: none; }
 
 .info-item {
   display: flex;
@@ -941,26 +942,60 @@ img {
 }
 
 
+
+
 /* ═══════════════════════════════════════════════════════════
    RESPONSIVE BREAKPOINTS
-   How this works: CSS reads top-to-bottom. Everything above
-   is the "desktop default." Media queries below only activate
-   when the screen matches the condition — they override just
-   what needs to change, nothing else.
 ═══════════════════════════════════════════════════════════ */
 
-/* ── Tablet: 480px – 900px ──────────────────────────────── */
-@media (max-width: 900px) {
-  .site-header { gap: 16px; padding: 22px 24px; }
-  .header-logo { width: 92px; height: 65px; }
-  .header-title { font-size: 50px; }
-  .screens-quote { white-space: normal; font-size: 15px; padding: 0 24px; text-align: center; }
-}
-
-/* ── Mobile: 0 – 480px ──────────────────────────────────── */
+/* ── Mobile: max-width 480px ──────────────────────────────── */
 @media (max-width: 480px) {
-  .site-header { gap: 16px; padding: 20px 24px; }
-  .header-logo { width: 82px; height: 58px; }
-  .header-title { font-size: 45px; white-space: normal; line-height: 1.05; }
-  .screens-quote { white-space: normal; font-size: 14px; padding: 0 20px; }
+  /* ── hide all sections while building mobile ── */
+  .overview-section,
+  .vision-strategy-wrap,
+  .decisions-section,
+  .reflection-section,
+  .next-section { display: none; }
+
+  /* ── SCREENS ── */
+  .screens-strip { display: block; overflow: hidden; padding: 20px 0; }
+  .screens-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0;
+    width: 100%;
+  }
+  .screens-row::-webkit-scrollbar { display: none; }
+  .screen {
+    flex: 0 0 100vw;
+    scroll-snap-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .screens-row .screen:nth-child(1) img,
+  .screens-row .screen:nth-child(2) img,
+  .screens-row .screen:nth-child(3) img,
+  .screens-row .screen:nth-child(4) img {
+    animation: none;
+    width: 75vw;
+    height: auto;
+  }
+
+  /* ── INFO BAR ── */
+  .info-bar { gap: 0; padding: 10px 0; justify-content: center; }
+  .info-item--desktop, .info-item--platform { display: none; }
+  .info-item.info-item--mobile { display: flex; gap: 4px; }
+  .info-label { font-size: 14px; }
+  .info-value { font-size: 16px; }
+
+  /* ── HEADER ── */
+  .site-header { padding: 16px 24px; gap: 6px; justify-content: center; }
+  .header-logo { width: 60px; height: 41px; }
+  .header-title { font-size: 32px; white-space: normal; }
 }
