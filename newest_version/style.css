@@ -185,21 +185,21 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  padding: 20px 24px;
+  gap: 24px;
+  padding: 30px 36px;
   background: var(--harvest-gold-100);
 }
 
 .header-logo {
-  width: 82px;
-  height: 58px;
+  width: 123px;
+  height: 87px;
   flex-shrink: 0;
 }
 
 .header-title {
   font-family: 'Cinzel', serif;
   font-weight: 500;
-  font-size: 45px;
+  font-size: 68px;
   line-height: 1;
   color: var(--ink);
   white-space: nowrap;
@@ -214,18 +214,18 @@ img {
 .info-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  max-width: 844px;
-  width: calc(100% - 64px);
-  margin: 0 auto;
-  padding: 8px 40px;
-  border: 1px solid transparent;
-  border-radius: 6px;
-  /* gradient border: padding-box keeps surface color inside, border-box paints the gradient on the border */
+  justify-content: center;
+  gap: 80px;
+  width: 100%;
+  padding: 12px 80px;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
   background:
-    linear-gradient(var(--surface-300), var(--surface-300)) padding-box,
+    linear-gradient(var(--harvest-gold-200), var(--harvest-gold-200)) padding-box,
     linear-gradient(90deg, var(--harvest-gold), var(--saffron-700) 50%, var(--harvest-gold)) border-box;
-  /* double shadow: tight layer close in, soft layer further out — both from the oxide-red family */
   box-shadow:
     0 2px 6px rgba(94, 26, 18, 0.18),
     0 6px 20px rgba(63, 18, 12, 0.09);
@@ -241,15 +241,15 @@ img {
 .info-label {
   font-family: 'Spectral SC', serif;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.33;
-  color: var(--harvest-gold);
+  color: var(--harvest-gold-900);
 }
 
 .info-value {
   font-family: 'Spectral', serif;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 19px;
   line-height: 1.4;
   color: var(--ink);
 }
@@ -291,6 +291,9 @@ img {
   padding: 0;
   margin-bottom: 0;
 }
+
+.overview-section .title-line    { background: var(--harvest-gold-900); }
+.overview-section .section-heading { color: var(--ink-800); }
 
 .overview-columns {
   display: flex;
@@ -353,14 +356,34 @@ img {
 ═══════════════════════════════════════════════════════════ */
 .screens-strip {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 32px;
   width: 100%;
   padding: 36px 0;
   background: var(--surface-300);
   border-top: 1px solid var(--harvest-gold);
   border-bottom: 1px solid var(--harvest-gold);
+}
+
+.screens-quote {
+  font-family: 'Spectral', serif;
+  font-weight: 500;
+  font-style: italic;
+  font-size: 21px;
+  line-height: 1;
+  color: var(--ink);
+  text-align: center;
+  white-space: nowrap;
+  padding: 16px 0;
+}
+
+.screens-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  width: 100%;
 }
 
 .screen img {
@@ -819,33 +842,16 @@ img {
 
 /* ── Tablet: 480px – 900px ──────────────────────────────── */
 @media (max-width: 900px) {
-  .site-header {
-    gap: 12px;
-    padding: 16px 20px;
-  }
-  .header-logo {
-    height: 30px;
-    width: auto;
-  }
-  .header-title {
-    font-size: 34px;
-  }
+  .site-header { gap: 16px; padding: 22px 24px; }
+  .header-logo { width: 92px; height: 65px; }
+  .header-title { font-size: 50px; }
+  .screens-quote { white-space: normal; font-size: 15px; padding: 0 24px; text-align: center; }
 }
 
 /* ── Mobile: 0 – 480px ──────────────────────────────────── */
 @media (max-width: 480px) {
-  .site-header {
-    gap: 10px;
-    padding: 20px 16px;
-    align-items: center;
-  }
-  .header-logo {
-    height: 24px;
-    width: auto;
-  }
-  .header-title {
-    font-size: 26px;
-    white-space: normal;
-    line-height: 1.1;
-  }
+  .site-header { gap: 16px; padding: 20px 24px; }
+  .header-logo { width: 82px; height: 58px; }
+  .header-title { font-size: 45px; white-space: normal; line-height: 1.05; }
+  .screens-quote { white-space: normal; font-size: 14px; padding: 0 20px; }
 }
