@@ -969,22 +969,22 @@ img {
     scrollbar-width: none;
     gap: 0;
     width: 100%;
+    padding: 0 10vw;
+    box-sizing: border-box;
   }
   .screens-row::-webkit-scrollbar { display: none; }
   .screen {
-    flex: 0 0 100vw;
+    flex: 0 0 80vw;
     scroll-snap-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-inline: -16px;
   }
-  .screens-row .screen:nth-child(1) img,
-  .screens-row .screen:nth-child(2) img,
-  .screens-row .screen:nth-child(3) img,
-  .screens-row .screen:nth-child(4) img {
-    animation: none;
-    width: 75vw;
-    height: auto;
+  .screens-row .screen img {
+    animation: none !important;
+    width: 80%;
+    height: auto !important;
   }
 
   /* ── INFO BAR ── */

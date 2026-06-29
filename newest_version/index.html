@@ -325,7 +325,75 @@
     </div>
   </section>
 
+<script>
+(function () {
+  if (window.innerWidth > 480) return;
 
+  var row = document.querySelector('.screens-row');
+  if (!row) return;
+
+  var slides = Array.from(row.querySelectorAll('.screen'));
+  var n = slides.length; // 4
+  var slotW = Math.round(window.innerWidth * 0.8) - 32; // 80vw minus negative margins
+  var setW  = n * slotW;
+
+  // Triple slides: [1,2,3,4 | 1,2,3,4 | 1,2,3,4]
+  slides.forEach(function (s) { row.insertBefore(s.cloneNode(true), slides[0]); });
+  slides.forEach(function (s) { row.appendChild(s.cloneNode(true)); });
+
+  function interpolate() {
+    var pos = row.scrollLeft;
+    Array.from(row.querySelectorAll('.screen')).forEach(function (s, i) {
+      var dist = Math.abs(pos - i * slotW);
+      // reach t=1 when 20% of a slot away from center — buffers against snap overshoot
+      var raw = Math.min(1, Math.max(0, (1 - dist / slotW) * 1.25));
+      var t = 1 - (1 - raw) * (1 - raw); // ease-out quadratic
+      var img = s.querySelector('img');
+      img.style.width      = (80 + t * 10).toFixed(1) + '%';
+      img.style.filter     = 'brightness(' + (0.88 + t * 0.12).toFixed(2) + ') blur(' + ((1 - t) * 2).toFixed(1) + 'px)';
+    });
+  }
+
+  // Auto-advance
+  var autoTimer;
+  function startAuto() {
+    clearTimeout(autoTimer);
+    autoTimer = setTimeout(function () {
+      row.scrollBy({ left: slotW, behavior: 'smooth' });
+    }, 5000);
+  }
+
+  // Pause auto when user touches
+  row.addEventListener('touchstart', function () {
+    clearTimeout(autoTimer);
+  }, { passive: true });
+
+  // Start in middle set
+  requestAnimationFrame(function () {
+    row.scrollLeft = n * slotW;
+    interpolate();
+    startAuto();
+  });
+
+  // After scroll settles, jump back to middle set if in outer sets, then restart timer
+  function reset() {
+    var pos = row.scrollLeft;
+    var newPos = (pos % setW) + setW;
+    if (Math.abs(newPos - pos) > 1) row.scrollLeft = newPos;
+    interpolate();
+    startAuto();
+  }
+
+  var t;
+  row.addEventListener('scroll', function () {
+    interpolate();
+    clearTimeout(t);
+    t = setTimeout(reset, 300);
+  }, { passive: true });
+
+  row.addEventListener('scrollend', reset, { passive: true });
+}());
+</script>
 
 </body>
 </html>
